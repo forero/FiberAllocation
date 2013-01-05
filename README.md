@@ -1,4 +1,4 @@
 DEfiber
 =======
 
-Fiber allocation code for a ~4K fiber spectrograph.
+Assigns optical fibers to galaxy targets in the sky.
