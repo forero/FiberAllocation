@@ -38,5 +38,23 @@ The matching routine takes as inputs
 * The Fibers as constructed in the class FiberSet
 * The Galaxies as constructed in the class MockGalaxyCatalog
 * epsilon (scalar, float) default 0.1. The radius around which the fibers look for galaxies. This should be set to the fiber_pitch value.
-* 
-* 
+
+Function Layout
+===============
+
+### User-defined functions
+* class FiberSet
+* class MockGalaxyCatalog
+* function close_match_xy
+* function reset_fiber_collisions
+* function make_fiber_allocation
+
+### Modules required
+* numpy
+* sys
+
+Code Procedure
+==============
+
+Execution
+=========
