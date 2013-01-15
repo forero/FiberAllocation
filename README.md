@@ -19,6 +19,7 @@ Open Issues to Continue Development
 * Option for reading the galaxy positions from an external file has to be implemented.
 * Option for writing to disk the match fiber-galaxy has to be implemented
 * Include the priority information of different galaxy populations into the matching routine.
+* Write tests for quality assesment.
 
 Inputs/Outputs
 ==============
