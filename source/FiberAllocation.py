@@ -12,7 +12,6 @@ class FiberSet(object):
     Inputs:
     Ndiameter: number of fiabers along the tile's diameter. 
     Fiber_pitch: fiber_pitch in degrees
-    Fiber_size: fiber_size in degrees
     center_x: fiber center in degrees
     center_y: fiber center in degrees
 
@@ -29,14 +28,12 @@ class FiberSet(object):
     def __init__(self,
                  Ndiameter=73,
                  fiber_pitch = 6.0,
-                 fiber_size = 0.05,
                  center_x = 0.0,
                  center_y = 0.0,
                 ):
         self.center_x = center_x
         self.center_y = center_y
-        self.fiber_size = fiber_size
-        self.fiber_pitch = fiber_pitch # This quantity has to be modif
+        self.fiber_pitch = fiber_pitch 
         self.Ndiameter = Ndiameter
         self.make_hexagon_tile()
             
@@ -276,7 +273,7 @@ def make_fiber_allocation(fibers, gals, tile_visit_ID=1):
 # Example
 
 # Creates a set of fibers
-fibers = FiberSet(Ndiameter=73, fiber_pitch=0.1, fiber_size=0.01)
+fibers = FiberSet(Ndiameter=73, fiber_pitch=0.1)
 
 # Creates a set of galaxies
 gals = MockGalaxyCatalog(Ngalaxies=50000, radius_fov=fibers.radius, priority_levels=3)
