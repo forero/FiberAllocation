@@ -37,7 +37,7 @@ Required inputs to construct a mock catalog of galaxies are:
 The matching routine takes as inputs 
 * The Fibers as constructed in the class FiberSet
 * The Galaxies as constructed in the class MockGalaxyCatalog
-* epsilon (scalar, float) default 0.1. The radius around which the fibers look for galaxies. This should be set to the fiber_pitch value.
+* epsilon (scalar, float) default 0.1. The radius around which the fibers look for galaxies. This is set to the fiber_pitch value.
 
 Function Layout
 ===============
@@ -58,3 +58,14 @@ Code Procedure
 
 Execution
 =========
+Currently the code can be executed as
+```
+# Creates a set of fibers
+fibers = FiberSet(Ndiameter=73, fiber_pitch=0.1)
+
+# Creates a set of galaxies
+gals = MockGalaxyCatalog(Ngalaxies=50000, radius_fov=fibers.radius, priority_levels=3)
+
+# Runs the fiber allocation
+make_fiber_allocation(fibers, gals, tile_visit_ID=340)
+```
