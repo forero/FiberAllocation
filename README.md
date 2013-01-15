@@ -38,6 +38,8 @@ The matching routine takes as inputs
 * The Fibers as constructed in the class FiberSet
 * The Galaxies as constructed in the class MockGalaxyCatalog
 * epsilon (scalar, float) default 0.1. The radius around which the fibers look for galaxies. This is set to the fiber_pitch value.
+* tile_visit_ID (scalar, integer) default 1. A unique ID identifying the tile/visit that observed a galaxy
+ 
 
 Function Layout
 ===============
