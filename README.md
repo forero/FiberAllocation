@@ -16,30 +16,57 @@ Open Issues to Continue Development
 ===================================
 
 * The code assumes a flat sky.
-* Option for reading the galaxy positions from an external file has to be implemented.
 * Option for writing to disk the match fiber-galaxy has to be implemented
 * Include the priority information of different galaxy populations into the matching routine.
 * Write tests for quality assesment.
+* Implement Simulated Annealing.
 
 Inputs/Outputs
 ==============
 
-Required inputs to construct the fibers are: 
+Requiered galaxy gatalog input:
+Is an ascii file with four columns separated by spaces. Each line corresponding to a galaxy with:
+* unique galaxy_ID in the sky (scalar, int)
+* galaxy type (scalar, int). Identifies three kinds of galaxies: ELG, LRG, QSO.
+* ra (scalar, float) position in degrees
+* dec (scalar, float) position in degrees
+
+Required inputs to construct the fibers:
 * fiber_pitch (scalar, float) default 0.01. fiber pitch in degrees
-* Ndiameter (scalar, integer) default 73. Number of fibers along the major axis in the hexagonal tile
-* center_x (scalar, float) default 0.0. Position of the central fiber in the x-direction
-* center_y (scalar, float) default 0.0. Position of the central fiber in the y-direction
+* Ndiameter (scalar, integer) default 73. Number of fibers along the major axis in a hexagonal tile
+* center_x (scalar, float) default 0.0. Position of the central fiber in the ra-direction. In degrees
+* center_y (scalar, float) default 0.0. Position of the central fiber in the dec-direction. In degrees.
 
-Required inputs to construct a mock catalog of galaxies are:
-* radius_fov (scatlar, float) default 3.0. The radius in degrees of the area covered by the galaxies.
-* Ngalaxies (scalar, integer) default 1000. The number of galaxies in the catalog.
-* priority_levels (scalar, integer) default 3. The number of different priority levels from 0 to (priority_levels-1)
 
-The matching routine takes as inputs 
-* The Fibers as constructed in the class FiberSet
-* The Galaxies as constructed in the class MockGalaxyCatalog
-* epsilon (scalar, float) default 0.1. The radius around which the fibers look for galaxies. This is set to the fiber_pitch value.
-* tile_visit_ID (scalar, integer) default 1. A unique ID identifying the tile/visit that observed a galaxy
+Required input to feed the allocation routine:
+* tile_ID (scalar, integer) default 1. A unique ID during the survey. Identifies the tile that triggered this instance of fiber allocation.
+* visit_ID (scalar, integer) default 1. A unique ID for each tile. Identifies the number of times that a particular tile_ID has been observed. 
+* patrol_radius (scalar, float) default 0.01. patrol radius of each fiber. In degrees.
+* exclusion_radius (scalar, float) default 0.0. Minimum separation between the centers of two fibers are allowed to have before having a collision. In degrees.
+* fiber_size (scalar, float) default 0.0. Diameter of the fibers. The exclusion_radius parameter should be equal or larger than half the fiber_size. In degrees.
+
+
+Data that is produced inside the routine as initialization:
+A list of fibers with the following information:
+* A unique fiber ID (scalar, int)
+* The unperturbed ra-dec coordinates (scalar, floats). In degrees.
+
+Data that is produced inside the routine after the allocation is completed.
+For each fiber:
+* The corresponding galaxy_ID that the fiber will observe (scalar, int). 
+* The value is -1 if the fiber is free.
+* The perturbed positions in ra-dec coordinates (scalar, floats) corresponding
+  to the galaxy that was allocated to this fiber.
+
+Outputs
+The output is a list of galaxies with 7 columns:
+* unique galaxy_ID in the sky (scalar, int)
+* galaxy type (scalar, int). Corresponds to ELG, LRG, QSO.
+* ra (scalar float). Same as input.
+* dec (scalar, float). Same as input.
+* tile_ID (scalar, int). Sames as input if galaxy was allocated. -1 if not.
+* visit_ID (scalar, int). Same as input if galaxy was allocated. -1 if not.
+* fiber_ID (scalar, int). fiber_ID of the fiber allocated to it. -1 it none.
  
 
 Function Layout
