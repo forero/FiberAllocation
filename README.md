@@ -18,14 +18,14 @@ Open Issues to Continue Development
 * The code assumes a flat sky.
 * Option for writing to disk the match fiber-galaxy has to be implemented
 * Include the priority information of different galaxy populations into the matching routine.
-* Write tests for quality assesment.
+* Write tests for quality assessment.
 * Implement Simulated Annealing.
 
 Inputs/Outputs
 ==============
 
-Requiered galaxy gatalog input:
-Is an ascii file with four columns separated by spaces. Each line corresponding to a galaxy with:
+Required galaxy catalog input:
+Is an ASCII file with four columns separated by spaces. Each line corresponding to a galaxy with:
 * unique galaxy_ID in the sky (scalar, int)
 * galaxy type (scalar, int). Identifies three kinds of galaxies: ELG, LRG, QSO.
 * ra (scalar, float) position in degrees
