@@ -1,0 +1,61 @@
+\documentclass{article}
+\title{Galaxy Completeness in Massive Fiber Allocation Techniques}
+\begin{document}
+\maketitle
+\section{Introduction}
+
+\section{Fibers and Galaxies}
+
+\subsection{Fibers}
+
+The fibers are placed in an hexagonal tile following a pattern where
+the interfiber distance, the pitch $P$, is the same for all
+fibers. The pattern is shown in Figure 1. 
+
+Each fiber tile is completelt described by the patrol radius $r_{\rm
+  p}$ and the exclusion radius $r_{\rm e}$.
+
+
+We try to different setups the 
+\begin{itemize}
+\item {\rm Despec}. Patrol radius $r_{\rm p}=P$. Exclusion radius
+  $r_{\rm e}=1/10\times P$
+\item {\rm BB}. Patrol radius $r_{\rm p}=P/\sqrt{3}$. Exclusion radius
+  $r_{\rm e}=1/5\times P$
+\end{itemize}
+
+\subsection{Galaxies}
+We use two kinds of galaxy distributions: poissonian and clustered. 
+
+... The clustered galaxy distribution (Steph).
+
+\section{Allocation Algorithms}
+
+We use two allocation algorithms
+
+\subsection{Simulated Annealing}
+
+
+\subsection{Local Galaxy Density}
+
+\section{Results}
+
+The following table summarizes our results
+
+\begin{table}
+\begin{tabular}{cccccc}\hline
+Fiber & Galaxy & Allocation & Total & ELG & LRG\\
+Setup & Distribution & Algorithm & Completeness & Completeness& Completeness\\\hline
+DESpec & Poisson & SA & & -& -\\
+BB & Poisson & SA & & -& -\\
+DESpec & Mock & SA & & &\\
+BB & Mock & SA & & &\\
+DESpec & Poisson & GD & & -& -\\
+BB & Poisson & GD & & -&-\\
+DESpec & Mock & GD & & &\\
+BB & Mock & GD & & &\\\hline
+\end{tabular}
+\label{Summary of the results.}
+\end{table}
+
+\end{document}
