@@ -1,5 +1,5 @@
 \documentclass{article}
-\title{Galaxy Completeness in Massive Fiber Allocation Techniques}
+\title{Galaxy completeness in two massive fiber allocation setups}
 \begin{document}
 \maketitle
 \section{Introduction}
@@ -21,7 +21,7 @@ We try to different setups the
 \item {\rm Despec}. Patrol radius $r_{\rm p}=P$. Exclusion radius
   $r_{\rm e}=1/10\times P$
 \item {\rm BB}. Patrol radius $r_{\rm p}=P/\sqrt{3}$. Exclusion radius
-  $r_{\rm e}=1/5\times P$
+  $r_{\rm e}=0.15 \times P$
 \end{itemize}
 
 \subsection{Galaxies}
@@ -44,15 +44,15 @@ The following table summarizes our results
 
 \begin{table}
 \begin{tabular}{cccccc}\hline
-Fiber & Galaxy & Allocation & Total & ELG & LRG\\
+Fiber & Galaxy & Allocation & \% Total & \% ELG & \% LRG\\
 Setup & Distribution & Algorithm & Completeness & Completeness& Completeness\\\hline
 DESpec & Poisson & SA & & -& -\\
 BB & Poisson & SA & & -& -\\
 DESpec & Mock & SA & & &\\
 BB & Mock & SA & & &\\
-DESpec & Poisson & GD & & -& -\\
-BB & Poisson & GD & & -&-\\
-DESpec & Mock & GD & & &\\
+DESpec & Poisson & GD & 94 & -& -\\
+BB & Poisson & GD & 88& -&-\\
+DESpec & Mock & GD & 90 & 94 & 86\\
 BB & Mock & GD & & &\\\hline
 \end{tabular}
 \label{Summary of the results.}
