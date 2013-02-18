@@ -153,7 +153,7 @@ class MockGalaxyCatalog(object):
         self.center_x = np.average(self.x)
         self.center_y = np.average(self.y)
         self.radius_fov = -1.0
-        print shape(self.x)
+        print np.shape(self.x)
         
     def make_random_mock_catalog(self):
         radius_fov_rand = self.radius_fov * np.sqrt(np.random.rand(self.Ngalaxies)) # Radius in degrees
