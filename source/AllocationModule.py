@@ -155,12 +155,12 @@ class MockGalaxyCatalog(object):
     def load_galaxy_catalog(self):
         print "Loading", self.filename
         raw_data = np.loadtxt(self.filename)
-        selected = raw_data[:,7]
+        selected = raw_data[:,0]
 
 
-        self.x = raw_data[:,8]
-        self.y = raw_data[:,9]
-        self.ID = raw_data[:,1]
+        self.x = raw_data[:,1]
+        self.y = raw_data[:,2]
+        self.ID = np.int_(raw_data[:,1])
         self.Ngalaxies = np.size(self.ID)
 
         self.gal_type = raw_data[:,0]
