@@ -33,13 +33,72 @@ class FiberSet(object):
                  fiber_size = 0.05,
                  center_x = 0.0,
                  center_y = 0.0,
+                 hexagon = True,
+                 rectangle = False,
+                 Nx = 1,
+                 Ny = 1,
                 ):
         self.center_x = center_x
         self.center_y = center_y
         self.fiber_size = fiber_size
         self.fiber_pitch = fiber_pitch # This quantity has to be modif
         self.Ndiameter = Ndiameter
-        self.make_hexagon_tile()
+        self.Nx = Nx
+        self.Ny = Ny
+
+        if(hexagon and (not rectangle)):
+            self.make_hexagon_tile()
+        if(rectangle):
+            self.make_rectangle_tile()
+
+        self.Nfibers = self.x.size
+        self.ID = np.arange(self.Nfibers)
+        self.allocated_galaxy_ID = np.zeros(self.Nfibers)
+        self.allocated_galaxy_ID[:] = -1
+
+
+    def make_rectangle_tile(self):
+        self.Ny = self.Ny - (self.Ny%2 -1) #makes the number of spines in the y axis an odd number
+        x_baseline = np.arange(self.Nx) * self.fiber_pitch
+        x_baseline = x_baseline - np.median(x_baseline)
+        y_baseline = np.zeros(self.Nx, dtype=float)
+
+        self.x = np.empty((0))
+        self.y = np.empty((0))
+
+        self.x = np.append(self.x, x_baseline)
+        self.y = np.append(self.y, y_baseline)
+
+        # first pass (dec positive direction)
+        n_vertical = (self.Ny-1)/2
+
+        for i in range(n_vertical):
+            new_n_points = self.Nx
+            new_x_line = np.zeros((new_n_points), dtype=float)
+            new_y_line = np.zeros((new_n_points), dtype=float)
+            new_x_line = x_baseline[0:self.Nx] + ((i+1)%2) * self.fiber_pitch * 0.5
+            new_y_line = y_baseline[0:self.Nx] + (i+1) * (np.sqrt(3.0)/2.0) * self.fiber_pitch
+            self.x = np.append(self.x, new_x_line)
+            self.y = np.append(self.y, new_y_line)
+
+        # second pass (dec negative direction)
+        for i in range(n_vertical):
+            new_n_points = self.Nx
+            new_x_line = np.zeros((new_n_points), dtype=float)
+            new_y_line = np.zeros((new_n_points), dtype=float)
+            new_x_line = x_baseline[0:self.Nx] + ((i+1)%2) * self.fiber_pitch * 0.5
+            new_y_line = y_baseline[0:self.Nx] - (i+1) * (np.sqrt(3.0)/2.0) * self.fiber_pitch
+            self.x = np.append(self.x, new_x_line)
+            self.y = np.append(self.y, new_y_line)
+
+
+        self.x = self.x + self.center_x
+        self.y = self.y + self.center_y
+
+        self.original_x = self.x.copy()
+        self.original_y = self.y.copy()
+
+
 
     def make_hexagon_tile(self):
         self.Ndiameter = self.Ndiameter - (self.Ndiameter%2 -1) #makes the number of spines in the main axis an odd number
@@ -114,7 +173,10 @@ class MockGalaxyCatalog(object):
                  x_in = np.array([0.0]),
                  y_in = np.array([0.0]),
                  id_in = np.array([0]),
-                 random = False
+                 random = False,
+                 ra_range=1.0,
+                 dec_range=1.0,
+                 square=True
                 ):
         #if there is a filename to load do it
 
@@ -123,15 +185,23 @@ class MockGalaxyCatalog(object):
             self.load_galaxy_catalog()
         elif(random==True):
             #basic intrisic properties of the galaxy distribution
-            self.radius_fov = radius_fov
-            self.Ngalaxies = np.int_(3.14159 * (self.radius_fov**2) * number_density)
-
             self.galaxy_type_abundance = galaxy_type_abundance.copy()
             self.n_types = np.size(self.galaxy_type_abundance)
-
             self.center_x = center_x
             self.center_y = center_y
-            self.make_random_mock_catalog()
+            self.ra_range = ra_range
+            self.dec_range = dec_range
+
+            if(square):
+                self.radius_fov = -1.0
+                self.Ngalaxies = np.int_(self.ra_range * self.dec_range * number_density)
+                self.make_random_mock_catalog_square()
+            else:                
+            #basic intrisic properties of the galaxy distribution
+                self.radius_fov = radius_fov
+                self.Ngalaxies = np.int_(3.14159 * (self.radius_fov**2) * number_density)
+                self.make_random_mock_catalog()
+
         else:
             self.Ngalaxies = np.size(x_in)
             self.x = x_in
@@ -180,6 +250,15 @@ class MockGalaxyCatalog(object):
 
         self.x[:] = self.x[:] + self.center_x
         self.y[:] = self.y[:] + self.center_y
+
+    def make_random_mock_catalog_square(self):
+        self.ID = np.arange(self.Ngalaxies)
+        self.x = (np.random.rand(self.Ngalaxies) -0.5) * 2.0 * self.ra_range
+        self.y = (np.random.rand(self.Ngalaxies) -0.5) * 2.0 * self.dec_range
+
+        self.x[:] = self.x[:] + self.center_x
+        self.y[:] = self.y[:] + self.center_y
+
 
 def count_fibers_per_galaxy(galaxies_x, galaxies_y,  fibers_x, fibers_y, fiber_pitch, fibers_per_galaxy):
     n_items = galaxies_x.size
