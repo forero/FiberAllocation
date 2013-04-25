@@ -253,8 +253,8 @@ class MockGalaxyCatalog(object):
 
     def make_random_mock_catalog_square(self):
         self.ID = np.arange(self.Ngalaxies)
-        self.x = (np.random.rand(self.Ngalaxies) -0.5) * 2.0 * self.ra_range
-        self.y = (np.random.rand(self.Ngalaxies) -0.5) * 2.0 * self.dec_range
+        self.x = (np.random.rand(self.Ngalaxies) -0.5) * self.ra_range
+        self.y = (np.random.rand(self.Ngalaxies) -0.5) * self.dec_range
 
         self.x[:] = self.x[:] + self.center_x
         self.y[:] = self.y[:] + self.center_y
