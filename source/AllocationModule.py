@@ -115,7 +115,7 @@ class FiberSet(object):
         self.y = np.append(self.y, y_baseline)
 
         # first pass (dec positive direction)
-        n_vertical =  ((self.Ndiameter-1) - ((self.Ndiameter-1)/2))
+        n_vertical =  ((self.Ndiameter-1)/2 - ((self.Ndiameter-1)/2))
 
         for i in range(n_vertical):
             new_n_points = self.Ndiameter - i -1
@@ -391,7 +391,7 @@ def reset_fiber_collisions(id_t, f_x, f_y, f_x0, f_y0, epsilon=0.0):
 # <codecell>
 
 def make_fiber_allocation(fibers, gals, tile_ID=1, visit_ID=1, patrol_radius=0.0, rank_criterion="distance", exclusion_radius=0.0):
-    max_n_iterations = 10
+    max_n_iterations = 15
 
     #check that there are fibers to be allocated
     n_to_allocate = np.size(np.where(fibers.allocated_galaxy_ID==-1))
